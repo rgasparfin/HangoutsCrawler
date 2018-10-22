@@ -1,6 +1,6 @@
 
 async function hangoutsCrawler(page) {
-
+    
     return await page.evaluate(_ => {
         return new Promise(async (resolve, reject) => {
             let messagesContainerDiv = document.getElementsByClassName('Bl2pUd krjOGe')[0]
@@ -25,22 +25,19 @@ async function hangoutsCrawler(page) {
                         (messageElement.nodeName === 'DIV') ? messagesBank.push({ user: username, date: time, message }) : messagesBank[messagesBank.length - 1].message += '\n ' + message;;
                     }
                 }
-                return saveMessagesInStorage(messagesBank);
-            }
-
-
-            function saveMessagesInStorage(messages) {
-                resolve(JSON.stringify({ messages }))
+                return resolve(messagesBank);
             }
 
 
             function scrollMore() {
                 return setTimeout(() => {
-                    for (let i = 0; i < hiddenMessagesDivs.length; i++) {
-                        hiddenMessagesDivs[i].click();
+                    if (hiddenMessagesDivs.length) {
+                        for (let i = 0; i < hiddenMessagesDivs.length; i++) {
+                            hiddenMessagesDivs[i].click();
+                        }
                     }
-                    //scroll a bit to activate the google listenner
 
+                    //scroll a bit to activate the google listenner
                     messagesContainerDiv.scrollTop = 100;
                     //scrollback to the top
                     return setTimeout(() => {
@@ -49,7 +46,7 @@ async function hangoutsCrawler(page) {
                             lastScrollHeight = messagesContainerDiv.scrollHeight
                             return scrollMore();
                         }
-                        return extractMessagesFromElements(document.getElementsByClassName('jGyvbd GVSFtd sMVRZe'));
+                        return extractMessagesFromElements(document.getElementsByClassName('jGyvbd GVSFtd'));
                     }, 100)
                 }, 1000);
             }

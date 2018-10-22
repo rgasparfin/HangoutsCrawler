@@ -1,11 +1,13 @@
 let config = {
     "webpage":"https://chat.google.com",
+    "login":{
+        "autoLogin":false,
+        "email":"",
+        "password":""
+    },
     "crawlerOptions":{
-        "roomURL":[
-            "AAAAluTNIrk",
-            "AAAAN9O4brM",
-            "AAAA-bEY8e4"
-        ],
+        "roomURL":[],
+        "dmURL":[]
     }
 }
 
