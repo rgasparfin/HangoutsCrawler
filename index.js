@@ -22,7 +22,6 @@ async function autoLogin(page) {
 
 function printCSV(array) {
     let csvWithoutHeader = CSV.toCSV(array);
-    console.log(csvWithoutHeader)
     let finalCSV = `name,date,message\n${csvWithoutHeader}`
     return finalCSV;
 }
